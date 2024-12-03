@@ -1,75 +1,142 @@
 # RAG Assignment Project
 
-This project demonstrates a Retrieval-Augmented Generation (RAG) application that integrates multiple data modalities such as PDFs, audio, video, and images. It uses a combination of natural language processing (NLP), transcription, and computer vision techniques to create a searchable knowledge base using ChromaDB and generates responses based on user queries with the help of the Ollama LLM.
+A Retrieval-Augmented Generation (RAG) application that creates an intelligent knowledge base from multiple data sources including PDFs, audio, video, and images. The system leverages ChromaDB for vector storage and Ollama LLM for generating context-aware responses.
 
 ## Features
 
-- Processes and indexes:
-  - PDFs (using `langchain_community.document_loaders`)
-  - Audio files (MP3)
-  - Video files (extracts audio for transcription)
-  - Images (descriptions generated using CLIP)
-- Stores embeddings in a ChromaDB database.
-- Uses Ollama to generate responses based on a user-provided context and question.
-- Fully functional Flask-based web interface for user interaction.
+- Multi-modal data processing and indexing:
+  - PDF documents using LangChain document loaders
+  - Audio files (MP3) with speech-to-text conversion
+  - Video files with audio extraction and transcription
+  - Images with CLIP-based description generation
+- Vector storage using ChromaDB
+- Context-aware response generation with Ollama LLM
+- Interactive web interface built with Flask
 
----
+## Prerequisites
 
-## Setup Instructions
-
-### Prerequisites
-
-- Python 3.8+
+- Python 3.8 or higher
 - [Ollama](https://ollama.ai/) installed locally
-- GPU support (optional for faster inference with certain models)
+- CUDA-compatible GPU (optional, for improved performance)
 
----
+## Installation
 
-### 1. Clone the Repository
-
+1. Clone the repository:
 ```bash
 git clone <repository-url>
 cd <repository-directory>
+```
 
+2. Create and activate a virtual environment:
+```bash
 python -m venv env
-source env/bin/activate  # On Windows: .\env\Scripts\activate
 
-pip install -r requirement.txt
+# For Unix/macOS
+source env/bin/activate
 
-4. Install Ollama
-Follow the instructions on the Ollama website to install the CLI tool.
+# For Windows
+.\env\Scripts\activate
+```
 
-ollama pull llama3.2
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-6. Run the Application
-Start the Flask server:
+4. Install and configure Ollama:
+   - Install Ollama following the instructions at [ollama.ai](https://ollama.ai)
+   - Pull the required model:
+```bash
+ollama pull llama2
+```
 
-bash
-Copy code
+## Usage
+
+1. Start the Flask server:
+```bash
 python app.py
-The application will run on http://127.0.0.1:5000.
+```
 
+2. Access the web interface at `http://127.0.0.1:5000`
 
-Code Explanation
-1. Data Processing
-PDFs: Splits large documents into manageable chunks using RecursiveCharacterTextSplitter.
-Audio/Video: Converts MP3s and videos to text using speech_recognition.
-Images: Generates simple descriptions using the CLIP model.
-2. Embedding and Storage
-Stores document embeddings in a local ChromaDB database.
-Supports retrieval of relevant content based on user queries.
-3. Query and Response
-Extracts context from the knowledge base using the ChromaDB collection.
-Sends the context and user query to the Ollama LLM for response generation.
-4. Web Interface
-Simple Flask app allows users to input questions and view responses.
-Example Usage
-Place your files (PDFs, MP3s, videos, and images) in the datasets directory.
-Start the server (python app.py).
-Open your browser at http://127.0.0.1:5000.
-Enter your question and view the AI-generated response.
-Future Improvements
-Add support for additional file formats.
-Improve error handling and edge-case management.
-Extend the interface to include file upload functionality.
-Feel free to contribute or suggest improvements by creating an issue or pull request!
+3. Upload your documents or enter queries through the web interface
+
+## Architecture
+
+### Data Processing Pipeline
+
+1. **Document Processing**
+   - PDF processing: Chunks documents using RecursiveCharacterTextSplitter
+   - Audio processing: Converts speech to text using speech_recognition
+   - Video processing: Extracts audio and performs transcription
+   - Image processing: Generates descriptions using CLIP model
+
+2. **Vector Storage**
+   - Generates embeddings for all processed content
+   - Stores vectors in ChromaDB for efficient retrieval
+   - Implements similarity search for context retrieval
+
+3. **Response Generation**
+   - Retrieves relevant context from ChromaDB based on user queries
+   - Uses Ollama LLM to generate contextually appropriate responses
+   - Implements response filtering and post-processing
+
+## Project Structure
+
+```
+rag-project/
+├── app.py              # Flask application
+├── processors/         # Data processing modules
+├── models/            # Model configurations
+├── static/            # Web assets
+├── templates/         # Flask templates
+├── datasets/          # Input data directory
+└── requirements.txt   # Python dependencies
+```
+
+## Development
+
+### Setting Up Development Environment
+
+1. Install development dependencies:
+```bash
+pip install -r requirements-dev.txt
+```
+
+2. Set up pre-commit hooks:
+```bash
+pre-commit install
+```
+
+### Running Tests
+
+```bash
+pytest tests/
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## Future Improvements
+
+- Support for additional file formats
+- Enhanced error handling and logging
+- Bulk file upload functionality
+- API documentation
+- Performance optimizations
+- Docker containerization
+
+## License
+
+[Specify your license here]
+
+## Acknowledgments
+
+- [Ollama](https://ollama.ai/) for the LLM implementation
+- [ChromaDB](https://www.trychroma.com/) for vector storage
+- [LangChain](https://langchain.com/) for document processing
