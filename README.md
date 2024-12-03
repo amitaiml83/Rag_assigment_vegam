@@ -47,7 +47,7 @@ pip install -r requirements.txt
    - Install Ollama following the instructions at [ollama.ai](https://ollama.ai)
    - Pull the required model:
 ```bash
-ollama pull llama2
+ollama pull llama3.2
 ```
 
 ## Usage
@@ -105,12 +105,6 @@ pip install -r requirements-dev.txt
 pre-commit install
 ```
 
-### Running Tests
-
-```bash
-pytest tests/
-```
-
 ## Contributing
 
 1. Fork the repository
@@ -129,8 +123,6 @@ pytest tests/
 - Docker containerization
 
 ## License
-
-[Specify your license here]
 
 ## Acknowledgments
 
