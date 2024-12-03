@@ -85,12 +85,9 @@ python app.py
 
 ```
 rag-project/
-├── app.py              # Flask application
-├── processors/         # Data processing modules
-├── models/            # Model configurations
-├── static/            # Web assets
+├── app.py              # Flask application and preprocess
+├── datasets/           # Input data directory
 ├── templates/         # Flask templates
-├── datasets/          # Input data directory
 └── requirements.txt   # Python dependencies
 ```
 
