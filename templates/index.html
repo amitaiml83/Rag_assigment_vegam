@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Q&A</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 1.5rem;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            margin-bottom: 2rem;
+        }
+        form input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        form button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        #answer {
+            margin-top: 1.5rem;
+        }
+        #answer h2 {
+            color: #007BFF;
+        }
+        .code {
+            background-color: #f4f4f9;
+            border-left: 4px solid #007BFF;
+            padding: 0.75rem;
+            font-family: "Courier New", Courier, monospace;
+            color: #333;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>Interactive Question Answering App</header>
+    <main>
+        <form method="POST">
+            <label for="question"><strong>Ask a Question:</strong></label>
+            <input type="text" id="question" name="question" placeholder="Type your question here..." required>
+            <button type="submit">Get Answer</button>
+        </form>
+        {% if answer %}
+        <div id="answer">
+            <h2>Answer:</h2>
+            {% if is_code %}
+            <div class="code">
+                {{ answer }}
+            </div>
+            {% elif is_list %}
+            <ul>
+                {% for item in answer %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>{{ answer }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
